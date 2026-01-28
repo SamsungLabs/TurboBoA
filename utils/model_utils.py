@@ -1,6 +1,8 @@
 import torch
 from torch import nn
+
 from .utils import cleanup_memory
+
 
 def skip(*args, **kwargs):
     pass
@@ -27,7 +29,7 @@ def get_model(model_path):
     elif 'opt' in model_path:
         return get_opt(model_path)
     else:
-        raise NotImplemented(f"Not support {model_path.split('/')[-1]} model.")
+        raise NotImplementedError(f"Not support {model_path.split('/')[-1]} model.")
     
 
 def get_transformer_blocks(llm):

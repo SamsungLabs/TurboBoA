@@ -1,7 +1,14 @@
 import torch
 
-from quantizers.utils import get_cholesky_of_inverse, reorder_col, reverse_reorder_col, reorder_row, reverse_reorder_row
-from utils.quant_utils import fake_quantize, optimize_group_qparams, filter_dead_neuron, damping, compute_loss_degradation, quantize
+from quantizers.utils import get_cholesky_of_inverse, reorder_col, reorder_row, reverse_reorder_col, reverse_reorder_row
+from utils.quant_utils import (
+    compute_loss_degradation,
+    damping,
+    fake_quantize,
+    filter_dead_neuron,
+    optimize_group_qparams,
+    quantize,
+)
 from utils.utils import cleanup_memory
 
 torch.backends.cuda.matmul.allow_tf32 = False
