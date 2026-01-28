@@ -1,8 +1,10 @@
-import numpy as np
-import random
-import torch
 import os
+import random
+
+import numpy as np
+import torch
 from datasets import load_dataset
+
 
 def set_seed(seed):
     np.random.seed(seed)

@@ -1,10 +1,17 @@
 import os
+
 import torch
 from torch import nn
 
-from .model_utils import get_transformer_blocks, cache_first_transformer_input, set_device_after_last_transformer_block, get_logits_from_last_hidden_states
 from .data_utils import get_testdata
+from .model_utils import (
+    cache_first_transformer_input,
+    get_logits_from_last_hidden_states,
+    get_transformer_blocks,
+    set_device_after_last_transformer_block,
+)
 from .utils import cleanup_memory
+
 
 @torch.no_grad()
 def evaluate(llm, args):
@@ -79,8 +86,8 @@ def eval_zero_shot(llm, args):
     from lm_eval.models.huggingface import HFLM
 
     if torch.cuda.device_count() > 1:
+        from accelerate import dispatch_model, infer_auto_device_map
         from accelerate.utils import get_balanced_memory
-        from accelerate import infer_auto_device_map, dispatch_model
 
         no_split_module_classes = ["LlamaDecoderLayer"]
         max_memory = get_balanced_memory(llm, no_split_module_classes=no_split_module_classes)

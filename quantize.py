@@ -1,10 +1,11 @@
 import functools
+
 import torch
 
-from quantizers.turboboa import TurboBoA
 from quantizers.minmax import MinMaxQuantizer
-from utils.model_utils import get_transformer_blocks, get_head_info, get_rotary_emb, cache_first_transformer_input
-from utils.utils import find_layers, cleanup_memory
+from quantizers.turboboa import TurboBoA
+from utils.model_utils import cache_first_transformer_input, get_head_info, get_rotary_emb, get_transformer_blocks
+from utils.utils import cleanup_memory, find_layers
 
 QKV_NAMES = {"query": "self_attn.q_proj", "key": "self_attn.k_proj", "value": "self_attn.v_proj"}
 
@@ -87,7 +88,7 @@ def get_rotary_matrix(rotary_emb, config, position_ids):
 
 @torch.no_grad()
 def compute_Hessian(transformer_block, n_heads, n_kv_heads, head_dim, wrappers, quant_inps, fp_inps, block_kwargs, block_v, rotary_matrix):
-    from utils.hessian_utils import CovarianceCollector, preprocess, compute_cov
+    from utils.hessian_utils import CovarianceCollector, compute_cov, preprocess
     consider_dX = fp_inps is not None
 
     layers = find_layers(transformer_block)
@@ -213,7 +214,7 @@ def compute_Hessian(transformer_block, n_heads, n_kv_heads, head_dim, wrappers, 
 @torch.no_grad()
 def compute_Hessian_multigpu(transformer_block, n_heads, n_kv_heads, head_dim, wrappers, quant_inps, fp_inps, block_kwargs, block_v, rotary_matrix):
     gpus = [torch.device("cuda:%d" % i) for i in range(torch.cuda.device_count())]
-    from utils.hessian_utils import CovarianceCollector, preprocess, compute_cov
+    from utils.hessian_utils import CovarianceCollector, compute_cov, preprocess
     consider_dX = fp_inps is not None
 
     layers = find_layers(transformer_block)

@@ -1,12 +1,12 @@
+import io
 import time
 from contextlib import redirect_stdout
-import io
-from utils.model_utils import get_model
+
+from quantize import turboboa_fwrd
 from utils.data_utils import get_calib_data
 from utils.eval_utils import evaluate
+from utils.model_utils import get_model
 from utils.process_args import get_turboboa_arguments, get_turboboa_weight_quant_infos
-from quantize import turboboa_fwrd
-
 
 if __name__ == '__main__':
     args = get_turboboa_arguments()

@@ -1,5 +1,6 @@
 import torch
 
+
 class CovarianceCollector:
     def __init__(self, layer):
         self.layer = layer
