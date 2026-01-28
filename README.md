@@ -29,7 +29,7 @@ The main entry point for quantization and evaluation is `main.py`.
 To quantize a model (e.g., OPT-125m) with default settings (2-bit weights):
 
 ```bash
-python main.py --llm_path facebook/opt-125m --w_bits 2
+python main.py --llm_path facebook/opt-125m --w_bits 2 --block_v --n_quant_rows 16 --consider_dX --adaptive_qparam --refine_qparam
 ```
 
 ### TurboBoA Options
