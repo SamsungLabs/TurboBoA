@@ -34,20 +34,32 @@ python main.py --llm_path facebook/opt-125m --w_bits 2 --block_v --n_quant_rows 
 
 ### TurboBoA Options
 
-| Option | Description |
-| :--- | :--- |
-| `--block_v` | Whether to apply block-wise objective for the value projection. De-activate this option in memory-limited cases (BoA option) |
-| `--act_order_col` | whether to re-order columns before the quantization based on the column-wise Hessian (GPTQ heuristic) |
-| `--act_order_row` | whether to re-order rows before the quantization based on the row-wise Hessian |
-| `--qparam_comput` | how to select quantization grids. Grids can be determined with a naive MinMax or to minimize the weight perturbation (MMSE) or the layer-wise reconstruction error (Hessian) |
-| `--n_quant_rows` | Number of jointly quantized out-channels (feature 1) |
-| `--consider_dX` | Whether to consider the input deviation induced by the quantization of preceding layers (feature 2) |
-| `--alpha` | Percent of the residual term (GPTAQ heuristic) |
-| `--adaptive_qparam` | Whether to determine qparam adaptively to match the updated distribution (feature 3) |
-| `--refine_qparam` | Whether to refine qparam after assigning integer weights (feature 3) |
-| `--n_iters` | Number of iterations for coordinate descent-based scale refinement (feature 3) |
+- TurboBoA introduces three key features to enhance both the efficiency and accuracy of the conventional BoA.
+  - Feature 1: Joint Quantization of Multiple $N$ Out-channels
+  - Feature 2: Error Compensation for Pre-quantized Layers
+  - Feature 3: Adaptive Grid Selection with Coordinate Descent-based Refinement
 
-For a full list of arguments, refer to `utils/process_args.py`.
+- These features are highly configurable. You can activate or deactivate them by adjusting the following arguments:
+   | Feature | Argument | Description |
+   | :--- | :--- | :--- |
+   | Feature 1 | `--n_quant_rows` | Number of jointly quantized out-channels |
+   | Feature 2 | `--consider_dX` | Whether to consider the input deviation induced by the quantization of preceding layers | 
+   | | `--alpha` | Percent of the residual term (GPTAQ heuristic) |
+   | Feature 3 | `--adaptive_qparam` | Whether to determine qparam adaptively to match the updated distribution |
+   | | `--refine_qparam` | Whether to refine qparam after assigning integer weights |
+   | | `--n_iters` | Number of iterations for coordinate descent-based scale refinement |
+
+- We also include descriptions of other important arguments for your convenience:
+   | Argument | Description |
+   | :--- | :--- |
+   | `--qparam_comput` | how to select quantization grids. Grids can be determined with a naive MinMax or to minimize the weight perturbation (MMSE) or the layer-wise reconstruction error (Hessian) |
+   | `--block_v` | Whether to apply block-wise objective for the value projection. De-activate this option in memory-limited cases (BoA option) |
+   | `--act_order_col` | whether to re-order columns before the quantization based on the column-wise Hessian (GPTQ heuristic) |
+   | `--act_order_row` | whether to re-order rows before the quantization based on the row-wise Hessian |
+    - _**Note)**_ The results reported in the paper represent the best performance achieved by evaluating all four possible combinations of `act_order_col` and `act_order_row` (on/off states).
+
+- For a full list of arguments and their descriptions, please check `utils/process_args.py`.
+
 
 ## License
 
