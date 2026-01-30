@@ -13,7 +13,7 @@ torch.nn.init.normal_ = skip
 
 def get_opt(model_path):
     from transformers import OPTForCausalLM
-    model = OPTForCausalLM.from_pretrained(model_path, torch_dtype='auto')
+    model = OPTForCausalLM.from_pretrained(model_path, attn_implementation="eager", torch_dtype='auto')
     return model
 
 
