@@ -34,7 +34,7 @@ python main.py --llm_path facebook/opt-125m --w_bits 2 --block_v --n_quant_rows 
 
 ### TurboBoA Options
 
-- TurboBoA introduces three key features to enhance both the efficiency and accuracy of the conventional BoA.
+- TurboBoA introduces three key features to enhance both the efficiency and accuracy of the conventional [BoA](https://github.com/SamsungLabs/BOA).
   - Feature 1: Joint Quantization of Multiple $N$ Out-channels
   - Feature 2: Error Compensation for Pre-quantized Layers
   - Feature 3: Adaptive Grid Selection with Coordinate Descent-based Refinement
