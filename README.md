@@ -1,6 +1,6 @@
 # TurboBoA: Faster and Exact Attention-aware Quantization without Backpropagation
 
-This repository contains the code for the ICLR 2026 paper **TurboBoA: Faster and Exact Attention-aware Quantization without Backpropagation** ([arxiv](https://arxiv.org/abs/2602.04929)).
+This repository contains the code for the ICLR 2026 paper **TurboBoA: Faster and Exact Attention-aware Quantization without Backpropagation** ([paper](https://openreview.net/forum?id=HA0TnV8r7x)).
 
 The current release includes the following features:
   - Implementation of the proposed TurboBoA: `turboboa.py`
